@@ -30,6 +30,7 @@ function App() {
       offset: offset
     }
     dispatch(getCharacters(initialParams))
+    // eslint-disable-next-line
   }, [dispatch])
 
   return (
