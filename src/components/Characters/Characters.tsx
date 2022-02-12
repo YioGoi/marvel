@@ -8,7 +8,12 @@ import './style.scss'
 
 // Redux
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
-import { selectCharacterList, getCharacters, setLimit, setOffset } from 'redux/store/charactersSlice'
+import { 
+    selectCharacterList, 
+    // getCharacters, 
+    setLimit, 
+    setOffset 
+} from 'redux/store/charactersSlice'
 
 // Models
 import { charactersQueryParamTypes, characterListResultItemType } from 'models'
