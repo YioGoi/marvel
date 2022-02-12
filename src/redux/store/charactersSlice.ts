@@ -67,8 +67,6 @@ export const charactersSlice = createSlice({
     },
 })
 
-export const { setOffset, setLimit } = charactersSlice.actions
-
 // Selectors
 export const selectCharacterList = (state: any) => state.characters.characterList?.data 
 
