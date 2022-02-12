@@ -1,15 +1,78 @@
 .container {
-    max-width: 1280px;
-    margin   : 0 auto;
+    margin: 0 auto;
+    padding: 10px 20px 0;
 
     .character-list {
+        display              : grid;
+        grid-template-columns: repeat(auto-fit, minmax(15.82%, 1fr));
+        grid-column-gap      : 10px;
+        max-width            : 100%;
+
         .character {
-            color     : blue;
-            height    : 250px;
-            text-align: center;
-            padding   : 5px 10px;
-            background: #eee;
-            margin-top: 15px;
+            margin    : 6px 0 4px;
+            box-sizing: border-box;
+            position  : relative;
+            color     : #fff;
+            max-width : 100%;
+
+            &:hover {
+                .card-body {
+                    background-position: 0 -100%;
+                }
+
+                .thumb-frame {
+                    img {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            .thumb-frame {
+                background: #e62429;
+                margin    : 0;
+                overflow  : hidden;
+                padding   : 0;
+
+                img {
+                    height: 210px;
+                    background-size: cover;
+                    transition: transform .3s;
+                }
+            }
+
+            .card-body {
+                padding           : 16px 24px 17px 20px;
+                height            : 145px;
+                vertical-align    : middle;
+                z-index           : 30;
+                background        : #151515;
+                background-size   : 100% 200%;
+                background-image  : linear-gradient(to bottom, #151515 50%, #e62429 50%);
+                -webkit-transition: background-position 0.3s;
+                -moz-transition   : background-position 0.3s;
+                transition        : background-position 0.3s;
+
+                &::after {
+                    border-bottom-color: transparent;
+                    border-left-color  : transparent;
+                    border-right-color : #fff;
+                    border-style       : solid;
+                    border-top-color   : transparent;
+                    border-width       : 12px 12px 0 0;
+                    bottom             : 0;
+                    content            : "";
+                    position           : absolute;
+                    right              : 0;
+                    top                : auto;
+                    z-index            : 40;
+                }
+
+                p {
+                    font          : 400 16px/1.1 RobotoCondensed Bold, Trebuchet MS, Helvetica, Arial, sans-serif;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                }
+            }
         }
     }
 }

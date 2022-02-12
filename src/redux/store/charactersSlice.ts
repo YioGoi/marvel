@@ -1,10 +1,19 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 // Services
 import getCharactersService from "service/getCharactersService"
 
 // Types
 import { charactersQueryParamTypes } from 'models'
+
+interface charactersStates {
+    loading: boolean
+    error: boolean
+    errorString: string | undefined
+    characterList: {} | null | undefined
+    limit: number
+    offset: number
+}
 
 export const getCharacters = createAsyncThunk(
     "characters/getCharacters",
@@ -14,47 +23,43 @@ export const getCharacters = createAsyncThunk(
     }
 )
 
-export interface charactersStates {
-    loading: boolean
-    error: boolean
-    errorString: string | undefined
-    characterList: {} | null | undefined
-}
-
 const initialState: charactersStates = {
     loading: false,
     error: false,
     errorString: '',
-    characterList: null
+    characterList: null,
+    limit: 30,
+    offset: 0
 }
 
 export const charactersSlice = createSlice({
     name: "characters",
     initialState,
     reducers: {
-        // setcharactersFilterParams: (
-        //   state,
-        //   action: PayloadAction<getCharactersInputTypes>
-        // ) => {
-        //   state.filterParams = { ...state.filterParams, ...action.payload }
-        // },
-        // clearcharactersFilterParams: (state) => {
-        //   state.filterParams = {
-        //     ...initialState.filterParams,
-        //     firstDate: dayjs().startOf("day").format("L LTS"),
-        //     lastDate: dayjs().endOf("day").format("L LTS"),
-        //   }
-        // },
+        setLimit: (state, action) => {
+          state.limit = action.payload
+        },
+        setOffset: (state, action) => {
+          state.offset = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getCharacters.pending, (state) => {
                 state.loading = true
             })
-            .addCase(getCharacters.fulfilled, (state, action) => {
+            .addCase(getCharacters.fulfilled, (state: any, action) => {
                 state.loading = false
                 state.error = false
-                state.characterList = action.payload
+                
+                // Initial request
+                if (state.offset === 0) {
+                    state.characterList = action.payload
+                } else {
+                    // User scrolled
+                    // Concat new 30 results to the array
+                    state.characterList.data.results = state.characterList.data.results.concat(action.payload?.data?.results)
+                }
             })
             .addCase(getCharacters.rejected, (state, action) => {
                 state.loading = false
@@ -65,8 +70,7 @@ export const charactersSlice = createSlice({
     },
 })
 
-// export const { setcharactersFilterParams, clearcharactersFilterParams } =
-//   charactersSlice.actions
+export const { setOffset, setLimit } = charactersSlice.actions
 
 // Selectors
 export const selectCharacterList = (state: any) => state.characters.characterList?.data 

@@ -11,14 +11,13 @@ export interface pagedResultModel<T> {
     attributionText: string
     attributionHTML: string
     etag: string
-    data: {
+    data?: {
         offset: number
         limit: number
         total: number
         count: number
         results: T[]
-    }
-
+    } | undefined
 }
 
 export interface characterListResultItemType {

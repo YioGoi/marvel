@@ -3,9 +3,12 @@ import { useState, useRef, useEffect } from 'react'
 // Styles
 import './style.scss'
 
+// Mock Data
+// import mockData from './mockData'
+
 // Redux
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
-import { selectCharacterList, getCharacters } from 'redux/store/charactersSlice'
+import { selectCharacterList, getCharacters, setLimit, setOffset } from 'redux/store/charactersSlice'
 
 // Models
 import { charactersQueryParamTypes, characterListResultItemType } from 'models'
@@ -14,11 +17,11 @@ const Characters = () => {
     // Global State
     const dispatch = useAppDispatch()
     const characterList = useAppSelector(selectCharacterList)
+    const limit = useAppSelector(state => state.characters.limit)
+    const offset = useAppSelector(state => state.characters.offset)
 
     // tracking on which page we currently are
     const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(30)
-    const [offset, setOffset] = useState(0)
 
     // add loader refrence 
     const loader = useRef<HTMLHeadingElement>(null)
@@ -53,8 +56,8 @@ const Characters = () => {
         const target = entities[0]
         if (target.isIntersecting) {
             setPage((page) => page + 1)
-            setLimit(limit => limit + 30)
-            setOffset(offset => offset + 30)
+            dispatch(setLimit(limit + 30))
+            dispatch(setOffset(offset + 30))
         }
     }
 
@@ -63,18 +66,22 @@ const Characters = () => {
         <div className="character-list">
             {
                 characterList?.results.map((character: characterListResultItemType, index: number) => {
+                // mockData.map((character: characterListResultItemType, index: number) => {
                     return (
                         <div
                             key={index}
                             className="character"
                         >
-                            <h2>{character.name}</h2>
-                            <div>
-                                <img 
-                                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`} 
-                                    alt={`thumbnail-${character.id}`} 
+                            <div className='thumb-frame'>
+                                <img
+                                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                                    alt={`thumbnail-${character.id}`}
                                 />
                             </div>
+                            <div className='card-body'>
+                                <p>{character.name}</p>
+                            </div>
+
                         </div>
                     )
                 })
