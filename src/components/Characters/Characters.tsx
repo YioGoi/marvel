@@ -34,6 +34,7 @@ const Characters = () => {
         setPostList({
             list: newList
         })
+        // eslint-disable-next-line
     }, [page])
 
     const handleObserver = (entities: any) => {
