@@ -20,17 +20,14 @@ import Router from './router'
 
 function App() {
   const dispatch = useAppDispatch()
-  const limit = useAppSelector(state => state.characters.limit)
-  const offset = useAppSelector(state => state.characters.offset)
 
   useEffect(() => {
     let initialParams: charactersQueryParamTypes = {
       apikey: process.env.REACT_APP_API_KEY,
-      limit: limit,
-      offset: offset
+      limit: 30,
+      offset: 0
     }
     dispatch(getCharacters(initialParams))
-    // eslint-disable-next-line
   }, [dispatch])
 
   return (

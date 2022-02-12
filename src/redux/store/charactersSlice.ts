@@ -51,7 +51,7 @@ export const charactersSlice = createSlice({
             .addCase(getCharacters.fulfilled, (state: any, action) => {
                 state.loading = false
                 state.error = false
-                
+                debugger
                 // Initial request
                 if (state.offset === 0) {
                     state.characterList = action.payload
