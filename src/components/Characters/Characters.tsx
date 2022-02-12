@@ -38,7 +38,7 @@ const Characters = () => {
         if (loader.current) {
             observer.observe(loader.current)
         }
-
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -60,7 +60,6 @@ const Characters = () => {
             dispatch(setOffset(offset + 30))
         }
     }
-
 
     return (<div className="container">
         <div className="character-list">
