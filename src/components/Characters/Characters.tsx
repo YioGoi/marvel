@@ -3,13 +3,23 @@ import { useState, useRef, useEffect } from 'react'
 // Styles
 import './style.scss'
 
+// Redux
+import { useAppSelector, useAppDispatch } from 'redux/hooks'
+import { selectCharacterList, getCharacters } from 'redux/store/charactersSlice'
+
+// Models
+import { charactersQueryParamTypes, characterListResultItemType } from 'models'
+
 const Characters = () => {
-    // initialize list of characters
-    const [postList, setPostList] = useState({
-        list: [1, 2, 3, 4]
-    })
+    // Global State
+    const dispatch = useAppDispatch()
+    const characterList = useAppSelector(selectCharacterList)
+
     // tracking on which page we currently are
     const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(30)
+    const [offset, setOffset] = useState(0)
+
     // add loader refrence 
     const loader = useRef<HTMLHeadingElement>(null)
 
@@ -29,18 +39,22 @@ const Characters = () => {
     }, [])
 
     useEffect(() => {
-        // here we simulate adding new posts to List
-        const newList = postList.list.concat([1, 1, 1, 1])
-        setPostList({
-            list: newList
-        })
+        let newParams: charactersQueryParamTypes = {
+            apikey: process.env.REACT_APP_API_KEY,
+            limit: limit,
+            offset: offset
+        }
+        console.log('reached next scroll', newParams)
+        dispatch(getCharacters(newParams))
         // eslint-disable-next-line
-    }, [page])
+    }, [page, dispatch])
 
     const handleObserver = (entities: any) => {
         const target = entities[0]
         if (target.isIntersecting) {
             setPage((page) => page + 1)
+            setLimit(limit => limit + 30)
+            setOffset(offset => offset + 30)
         }
     }
 
@@ -48,13 +62,19 @@ const Characters = () => {
     return (<div className="container">
         <div className="character-list">
             {
-                postList.list.map((post, index) => {
+                characterList.results.map((character: characterListResultItemType, index: number) => {
                     return (
                         <div
                             key={index}
                             className="character"
                         >
-                            <h2> {post} </h2>
+                            <h2>{character.name}</h2>
+                            <div>
+                                <img 
+                                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`} 
+                                    alt={`thumbnail-${character.id}`} 
+                                />
+                            </div>
                         </div>
                     )
                 })

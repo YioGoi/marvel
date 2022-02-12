@@ -26,7 +26,10 @@ export interface characterListResultItemType {
     name: string
     description: string
     modified: string
-    thumbnail: {}
+    thumbnail: {
+        path: string
+        extension: string
+    }
     resourceURI: string
     comics: {}
     series: {}
