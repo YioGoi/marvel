@@ -10,9 +10,7 @@ import './style.scss'
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
 import { 
     selectCharacterList, 
-    getCharacters, 
-    setLimit, 
-    setOffset 
+    getCharacters
 } from 'redux/store/charactersSlice'
 
 // Models
@@ -30,10 +28,8 @@ const Characters = () => {
 
     const handleObserver = useCallback((entities: any) => {
         const target = entities[0]
+        console.log('isIntersecting', target.isIntersecting)
         if (target.isIntersecting) {
-            dispatch(setLimit(limit + 30))
-            dispatch(setOffset(offset + 30))
-
             let newParams: charactersQueryParamTypes = {
                 apikey: process.env.REACT_APP_API_KEY,
                 limit: limit + 30,

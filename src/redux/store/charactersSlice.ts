@@ -36,12 +36,6 @@ export const charactersSlice = createSlice({
     name: "characters",
     initialState,
     reducers: {
-        setLimit: (state, action) => {
-          state.limit = action.payload
-        },
-        setOffset: (state, action) => {
-          state.offset = action.payload
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -60,6 +54,9 @@ export const charactersSlice = createSlice({
                     // Concat new 30 results to the array
                     state.characterList.data.results = state.characterList.data.results.concat(action.payload?.data?.results)
                 }
+
+                state.limit = current(state)?.limit + 30
+                state.offset = current(state)?.offset + 30
             })
             .addCase(getCharacters.rejected, (state, action) => {
                 state.loading = false
