@@ -62,7 +62,7 @@ const Characters = () => {
     return (<div className="container">
         <div className="character-list">
             {
-                characterList.results.map((character: characterListResultItemType, index: number) => {
+                characterList?.results.map((character: characterListResultItemType, index: number) => {
                     return (
                         <div
                             key={index}
