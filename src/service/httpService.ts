@@ -15,7 +15,6 @@ const http = axios.create({
 
 http.interceptors.request.use(
   function (config) {
-    config.headers!["Accept-Language"] = "en"
     config.headers!["Content-Type"] = "application/json"
     return config
   },

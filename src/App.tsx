@@ -28,7 +28,7 @@ function App() {
       offset: 0
     }
     dispatch(getCharacters(initialParams))
-  }, [])
+  }, [dispatch])
 
   return (
     <BrowserRouter>
