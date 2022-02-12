@@ -11,8 +11,8 @@ import { useAppSelector, useAppDispatch } from 'redux/hooks'
 import { 
     selectCharacterList, 
     // getCharacters, 
-    setLimit, 
-    setOffset 
+    // setLimit, 
+    // setOffset 
 } from 'redux/store/charactersSlice'
 
 // Models
@@ -61,8 +61,8 @@ const Characters = () => {
         const target = entities[0]
         if (target.isIntersecting) {
             setPage((page) => page + 1)
-            dispatch(setLimit(limit + 30))
-            dispatch(setOffset(offset + 30))
+            // dispatch(setLimit(limit + 30))
+            // dispatch(setOffset(offset + 30))
         }
     }
 
