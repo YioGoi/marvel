@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 
 // Services
 import getCharactersService from "service/getCharactersService"
@@ -51,9 +51,9 @@ export const charactersSlice = createSlice({
             .addCase(getCharacters.fulfilled, (state: any, action) => {
                 state.loading = false
                 state.error = false
-                debugger
+                console.log(current(state))
                 // Initial request
-                if (state.offset === 0) {
+                if (current(state)?.offset === 0) {
                     state.characterList = action.payload
                 } else {
                     // User scrolled
