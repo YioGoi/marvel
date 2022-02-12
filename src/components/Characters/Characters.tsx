@@ -28,7 +28,7 @@ const Characters = () => {
     const handleObserver = useCallback((entities: any) => {
         const target = entities[0]
         console.log('intersectionRatio', target.intersectionRatio)
-        if (target.isIntersecting && target.intersectionRatio > 1) {
+        if (target.isIntersecting && target.intersectionRatio > 0) {
             let newParams: charactersQueryParamTypes = {
                 apikey: process.env.REACT_APP_API_KEY,
                 limit: 30,
@@ -66,10 +66,12 @@ const Characters = () => {
                             className="character"
                         >
                             <div className='thumb-frame'>
-                                <img
-                                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                                    alt={`thumbnail-${character.id}`}
-                                />
+                                <div 
+                                    className='image'
+                                    style={{
+                                        backgroundImage: `url(${character.thumbnail.path}.${character.thumbnail.extension})`
+                                    }}
+                                ></div>
                             </div>
                             <div className='card-body'>
                                 <p>{character.name}</p>

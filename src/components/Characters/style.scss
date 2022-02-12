@@ -22,7 +22,7 @@
                 }
 
                 .thumb-frame {
-                    img {
+                    .image {
                         transform: scale(1.1);
                     }
                 }
@@ -34,9 +34,9 @@
                 overflow  : hidden;
                 padding   : 0;
 
-                img {
-                    max-height: 320px;
-                    object-fit: cover;
+                .image {
+                    height: 210px;
+                    background-size: cover;
                     transition: transform .3s;
                 }
             }
