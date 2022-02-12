@@ -9,6 +9,14 @@ import {
 import Config from './Config'
 import { marvelHttp } from './httpService'
 
+function serialize(obj: any) {
+    var str = [];
+    for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
 
 function getFinalFilterParam(qp: charactersQueryParamTypes) {
     const pageFieldsAndFilterObjs: charactersQueryParamTypes = {
@@ -16,8 +24,9 @@ function getFinalFilterParam(qp: charactersQueryParamTypes) {
         limit: qp.limit,
         offset: qp.offset,
     }
-    const json = JSON.stringify(pageFieldsAndFilterObjs)
-    return encodeURIComponent(json)
+    const query = serialize(pageFieldsAndFilterObjs)
+    debugger
+    return query
 }
 
 const getCharactersService = async (
