@@ -1,0 +1,15 @@
+.container {
+    max-width: 1280px;
+    margin   : 0 auto;
+
+    .character-list {
+        .character {
+            color     : blue;
+            height    : 250px;
+            text-align: center;
+            padding   : 5px 10px;
+            background: #eee;
+            margin-top: 15px;
+        }
+    }
+}
