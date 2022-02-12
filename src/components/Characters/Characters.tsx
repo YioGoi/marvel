@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 
 // Styles
 import './style.scss'
@@ -10,9 +10,9 @@ import './style.scss'
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
 import { 
     selectCharacterList, 
-    // getCharacters, 
-    // setLimit, 
-    // setOffset 
+    getCharacters, 
+    setLimit, 
+    setOffset 
 } from 'redux/store/charactersSlice'
 
 // Models
@@ -25,11 +25,25 @@ const Characters = () => {
     const limit = useAppSelector(state => state.characters.limit)
     const offset = useAppSelector(state => state.characters.offset)
 
-    // tracking on which page we currently are
-    const [page, setPage] = useState(1)
-
     // add loader refrence 
     const loader = useRef<HTMLHeadingElement>(null)
+
+    const handleObserver = useCallback((entities: any) => {
+        const target = entities[0]
+        if (target.isIntersecting) {
+            dispatch(setLimit(limit + 30))
+            dispatch(setOffset(offset + 30))
+
+            let newParams: charactersQueryParamTypes = {
+                apikey: process.env.REACT_APP_API_KEY,
+                limit: limit + 30,
+                offset: offset + 30
+            }
+            console.log('reached next scroll', newParams)
+            dispatch(getCharacters(newParams))
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         let options = {
@@ -45,26 +59,6 @@ const Characters = () => {
         }
         // eslint-disable-next-line
     }, [])
-
-    useEffect(() => {
-        let newParams: charactersQueryParamTypes = {
-            apikey: process.env.REACT_APP_API_KEY,
-            limit: limit,
-            offset: offset
-        }
-        console.log('reached next scroll', newParams)
-        // dispatch(getCharacters(newParams))
-        // eslint-disable-next-line
-    }, [page, dispatch])
-
-    const handleObserver = (entities: any) => {
-        const target = entities[0]
-        if (target.isIntersecting) {
-            setPage((page) => page + 1)
-            // dispatch(setLimit(limit + 30))
-            // dispatch(setOffset(offset + 30))
-        }
-    }
 
     return (<div className="container">
         <div className="character-list">
@@ -90,9 +84,7 @@ const Characters = () => {
                     )
                 })
             }
-            <div className="loading" ref={loader}>
-                <h2>Load More</h2>
-            </div>
+            <div className="loading" ref={loader}></div>
         </div>
     </div>)
 }
