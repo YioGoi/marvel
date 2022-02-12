@@ -16,6 +16,7 @@ const http = axios.create({
 http.interceptors.request.use(
   function (config) {
     config.headers!["Content-Type"] = "application/json"
+    config.headers!["Access-Control-Allow-Origin"] = "https://marvel-test-app.netlify.app/"
     return config
   },
 
