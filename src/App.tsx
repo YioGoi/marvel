@@ -9,7 +9,7 @@ import {
 } from "react-router-dom"
 
 // Redux
-import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { useAppDispatch } from 'redux/hooks'
 import { getCharacters } from 'redux/store/charactersSlice'
 
 // Models
