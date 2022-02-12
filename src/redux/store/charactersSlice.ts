@@ -69,6 +69,6 @@ export const charactersSlice = createSlice({
 //   charactersSlice.actions
 
 // Selectors
-export const selectCharacterList = (state: any) => state.characters.characterList.data 
+export const selectCharacterList = (state: any) => state.characters.characterList?.data 
 
 export default charactersSlice.reducer
