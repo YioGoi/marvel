@@ -25,7 +25,6 @@ function getFinalFilterParam(qp: charactersQueryParamTypes) {
         offset: qp.offset,
     }
     const query = serialize(pageFieldsAndFilterObjs)
-    debugger
     return query
 }
 
