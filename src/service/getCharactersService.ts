@@ -33,7 +33,6 @@ const getCharactersService = async (
 ): Promise<pagedResultModel<characterListResultItemType> | undefined> => {
     const filterParams = getFinalFilterParam(queryParams)
     let result = await marvelHttp().get(Config.API.GET_CHARACTERS + filterParams)
-    console.log(result)
     return result.data
 }
 

@@ -48,7 +48,7 @@ const Characters = () => {
             offset: offset
         }
         console.log('reached next scroll', newParams)
-        dispatch(getCharacters(newParams))
+        // dispatch(getCharacters(newParams))
         // eslint-disable-next-line
     }, [page, dispatch])
 
