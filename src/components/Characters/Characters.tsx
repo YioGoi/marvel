@@ -20,7 +20,6 @@ const Characters = () => {
     // Global State
     const dispatch = useAppDispatch()
     const characterList = useAppSelector(selectCharacterList)
-    const limit = useAppSelector(state => state.characters.limit)
     const offset = useAppSelector(state => state.characters.offset)
 
     // add loader refrence 
@@ -28,11 +27,11 @@ const Characters = () => {
 
     const handleObserver = useCallback((entities: any) => {
         const target = entities[0]
-        console.log('isIntersecting', target.isIntersecting)
-        if (target.isIntersecting) {
+        console.log('intersectionRatio', target.intersectionRatio)
+        if (target.isIntersecting && target.intersectionRatio > 1) {
             let newParams: charactersQueryParamTypes = {
                 apikey: process.env.REACT_APP_API_KEY,
-                limit: limit + 30,
+                limit: 30,
                 offset: offset + 30
             }
             console.log('reached next scroll', newParams)

@@ -11,7 +11,6 @@ interface charactersStates {
     error: boolean
     errorString: string | undefined
     characterList: {} | null | undefined
-    limit: number
     offset: number
 }
 
@@ -28,7 +27,6 @@ const initialState: charactersStates = {
     error: false,
     errorString: '',
     characterList: null,
-    limit: 30,
     offset: 0
 }
 
@@ -55,7 +53,6 @@ export const charactersSlice = createSlice({
                     state.characterList.data.results = state.characterList.data.results.concat(action.payload?.data?.results)
                 }
 
-                state.limit = current(state)?.limit + 30
                 state.offset = current(state)?.offset + 30
             })
             .addCase(getCharacters.rejected, (state, action) => {
