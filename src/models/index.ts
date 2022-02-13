@@ -3,6 +3,11 @@ export interface charactersQueryParamTypes {
     limit: number
     offset: number
 }
+export interface comicsQueryParamTypes {
+    apikey: string | undefined
+    id: number
+    limit: number
+}
 
 export interface pagedResultModel<T> {
     code: number
@@ -35,4 +40,22 @@ export interface characterListResultItemType {
     stories: {}
     events: {}
     urls: {}[]
+}
+export interface comicListResultItemType {
+    id: number;
+    digitalId: number;
+    title: string;
+    issueNumber: number;
+    variantDescription: string;
+    description: null;
+    modified: string;
+    isbn: string;
+    upc: string;
+    diamondCode: string;
+    ean: string;
+    dates: {}[]
+    thumbnail: {
+        path: string
+        extension: string
+    }
 }

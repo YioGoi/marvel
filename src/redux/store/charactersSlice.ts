@@ -2,15 +2,17 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 
 // Services
 import getCharactersService from "service/getCharactersService"
+import getComicsService from "service/getComicsService"
 
 // Types
-import { charactersQueryParamTypes } from 'models'
+import { charactersQueryParamTypes, comicsQueryParamTypes } from 'models'
 
 interface charactersStates {
     loading: boolean
     error: boolean
     errorString: string | undefined
     characterList: {} | null | undefined
+    comicListById: {} | null | undefined
     offset: number
 }
 
@@ -22,11 +24,20 @@ export const getCharacters = createAsyncThunk(
     }
 )
 
+export const getCharacterComics = createAsyncThunk(
+    "characters/getCharacterComics",
+    async (queryParams: comicsQueryParamTypes, id) => {
+        const response = await getComicsService(queryParams)
+        return response
+    }
+)
+
 const initialState: charactersStates = {
     loading: false,
     error: false,
     errorString: '',
     characterList: null,
+    comicListById: null,
     offset: 0
 }
 
@@ -43,7 +54,7 @@ export const charactersSlice = createSlice({
             .addCase(getCharacters.fulfilled, (state: any, action) => {
                 state.loading = false
                 state.error = false
-                console.log('offset state', current(state))
+                
                 // Initial request
                 if (current(state)?.offset === 0) {
                     state.characterList = action.payload
@@ -63,10 +74,26 @@ export const charactersSlice = createSlice({
                 state.error = true
                 state.errorString = action.error.message
             })
+            .addCase(getCharacterComics.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getCharacterComics.fulfilled, (state: any, action) => {
+                state.loading = false
+                state.error = false
+                state.comicListById = action.payload
+                
+            })
+            .addCase(getCharacterComics.rejected, (state, action) => {
+                state.loading = false
+                state.comicListById = null
+                state.error = true
+                state.errorString = action.error.message
+            })
     },
 })
 
 // Selectors
 export const selectCharacterList = (state: any) => state.characters.characterList?.data 
+export const selectComicListById = (state: any) => state.characters.comicListById?.data 
 
 export default charactersSlice.reducer
