@@ -59,3 +59,18 @@ export interface comicListResultItemType {
         extension: string
     }
 }
+
+export interface charactersStates {
+    loading: boolean
+    error: boolean
+    errorString: string | undefined
+    characterList: {} | null | undefined
+    comicListById: {} | null | undefined
+    offset: number
+}
+
+export type LocationTypes = {
+    state: {
+        character: {}
+    } | any
+}

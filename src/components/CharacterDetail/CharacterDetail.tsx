@@ -5,9 +5,6 @@ import './style.scss'
 // Router
 import { useLocation } from 'react-router-dom'
 
-// Mock Data
-// import mockData from './mockData'
-
 // Router
 import { useNavigate } from "react-router"
 
@@ -16,22 +13,17 @@ import { useAppSelector } from 'redux/hooks'
 import { selectComicListById } from 'redux/store/charactersSlice'
 import { useEffect } from 'react'
 
-// Types
-type LocationTypes = {
-  state: {
-    character: {}
-  } | any
-}
+// Models
+import { LocationTypes } from 'models'
 
 // Components
-
 // eslint-disable-next-line 
 import Loading from "components/root/Loading/Loading"
 
 export default function CharacterDetail() {
   let location: LocationTypes = useLocation()
 
-  // State
+  // Global State
   const comicListById = useAppSelector(selectComicListById)
   const loading = useAppSelector(state => state.characters.loading)
   const character = location.state
@@ -42,19 +34,20 @@ export default function CharacterDetail() {
   // router
   const navigate = useNavigate()
 
-  // const sortedMockData = mockData.results.sort((a, b) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
-  // console.log(sortedMockData)
-
+  // Sort comics by published date desc
   useEffect(() => {
     let clone = Object.assign([], comicListById?.results)
     const _sortedComics = clone?.sort((a: any, b: any) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
     setSortedComics(_sortedComics)
   }, [comicListById])
 
+  // Do not remember users scroll
+  // Always start from the top
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
+  // Navigate to Characters List
   const handleBack = () => {
     navigate('/')
   }
@@ -85,44 +78,47 @@ export default function CharacterDetail() {
       </div>
 
       <div className='comics'>
-        <div className='header'>
-          <h3>
-            comics
-          </h3>
-          <span>
-            by published date
-          </span>
-        </div>
         {
-          sortedComics && sortedComics.length > 0 ? sortedComics.map((comic: any, index: number) => (
-            // sortedMockData && sortedMockData.length > 0 ? sortedMockData.map((comic: any, index: number) => (
-            <div
-              className='comic'
-              key={index}
-            >
-              <div className='comic-image'>
-                <img
-                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt={`comic-${comic.id}`}
-                />
-              </div>
+          sortedComics && sortedComics.length > 0 &&
+          <div className='header'>
+            <h3>
+              comics
+            </h3>
+            <span>
+              by published date
+            </span>
+          </div>
+        }
+        {
+          sortedComics && sortedComics.length > 0 ?
+            sortedComics.map((comic: any, index: number) => (
+              <div
+                className='comic'
+                key={index}
+              >
+                <div className='comic-image'>
+                  <img
+                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                    alt={`comic-${comic.id}`}
+                  />
+                </div>
 
-              <div className='card'>
-                <h2>
-                  {comic.title}
-                </h2>
-                <h3>
-                  {`${comic.prices[0].price} $`}
-                </h3>
-                <p>
-                  {comic.description}
-                </p>
-                <span>
-                  {new Date(comic.dates[0].date).toDateString()}
-                </span>
+                <div className='card'>
+                  <h2>
+                    {comic.title}
+                  </h2>
+                  <h3>
+                    {`${comic.prices[0].price} $`}
+                  </h3>
+                  <p>
+                    {comic.description}
+                  </p>
+                  <span>
+                    {new Date(comic.dates[0].date).toDateString()}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))
+            ))
             :
             <div>
               {

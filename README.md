@@ -1,3 +1,22 @@
+
+## To Test Marvel App for Production
+
+In the project directory, you can run:
+
+### `npm run build`
+
+then in the build directory:
+
+### `serve -s build`
+
+to serve the app on localhost:5000
+
+## Happy to serve this Marvel App on 
+
+[marvel.app](https://marvel-test-app.netlify.app/)
+
+You can check it out and test for the results.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts

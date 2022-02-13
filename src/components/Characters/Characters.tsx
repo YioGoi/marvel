@@ -3,9 +3,6 @@ import { useRef, useEffect, useCallback } from 'react'
 // Styles
 import './style.scss'
 
-// Mock Data
-// import mockData from './mockData'
-
 // Redux
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
 import {
@@ -30,13 +27,13 @@ const Characters = () => {
     const offset = useAppSelector(state => state.characters.offset)
     const loading = useAppSelector(state => state.characters.loading)
 
-    // add loader refrence 
+    // Refs
     const loader = useRef<HTMLHeadingElement>(null)
-    const rootRef = useRef<HTMLHeadingElement>(null)
 
-    // router
+    // Router
     const navigate = useNavigate()
 
+    // get new list from infinite scroll
     const handleObserver = useCallback((entities: any) => {
         const target = entities[0]
         if (target.isIntersecting && target.intersectionRatio > 0) {
@@ -50,6 +47,7 @@ const Characters = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // Listen for scroll to bottom for infinite scroll
     useEffect(() => {
         let options = {
             root: null,
@@ -78,7 +76,7 @@ const Characters = () => {
     }
 
     return (
-        <div className="container" ref={rootRef}>
+        <div className="container">
             <header>
                 <h3>
                     marvel character list
@@ -87,7 +85,6 @@ const Characters = () => {
             <div className="character-list">
                 {
                     characterList?.results.map((character: characterListResultItemType, index: number) => {
-                        // mockData.map((character: characterListResultItemType, index: number) => {
                         return (
                             <div
                                 key={index}

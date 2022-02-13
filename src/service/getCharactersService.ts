@@ -9,6 +9,7 @@ import {
 import Config from './Config'
 import { marvelHttp } from './httpService'
 
+// serialize func for preparing the query
 function serialize(obj: any) {
     let str = []
     for (var p in obj)
@@ -18,6 +19,7 @@ function serialize(obj: any) {
     return '?' + str.join("&")
 }
 
+// Fiter params query
 function getFinalFilterParam(qp: charactersQueryParamTypes) {
     const pageFieldsAndFilterObjs: charactersQueryParamTypes = {
         apikey: qp.apikey,

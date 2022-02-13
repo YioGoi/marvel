@@ -5,16 +5,11 @@ import getCharactersService from "service/getCharactersService"
 import getComicsService from "service/getComicsService"
 
 // Types
-import { charactersQueryParamTypes, comicsQueryParamTypes } from 'models'
-
-interface charactersStates {
-    loading: boolean
-    error: boolean
-    errorString: string | undefined
-    characterList: {} | null | undefined
-    comicListById: {} | null | undefined
-    offset: number
-}
+import { 
+    charactersQueryParamTypes, 
+    comicsQueryParamTypes, 
+    charactersStates 
+} from 'models'
 
 export const getCharacters = createAsyncThunk(
     "characters/getCharacters",

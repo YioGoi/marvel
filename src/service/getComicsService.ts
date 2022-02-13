@@ -9,6 +9,8 @@ import {
 import Config from './Config'
 import { marvelHttp } from './httpService'
 
+// Custom query for character detail page
+// Get id for character id and other params for queries
 function serialize(obj: any) {
     let clone = Object.assign({}, obj)
     let currentId = clone.id
@@ -23,6 +25,7 @@ function serialize(obj: any) {
     return `/${currentId}/comics?${str.join('&')}`
 }
 
+// Filter params query
 function getFinalFilterParam(qp: comicsQueryParamTypes) {
     const pageFieldsAndFilterObjs: comicsQueryParamTypes = {
         apikey: qp.apikey,
