@@ -1,4 +1,21 @@
 .character-detail-container {
+
+    .back {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+        cursor: pointer;
+
+        span {
+            padding-left: 4px;
+        }
+    }
+
     .character-detail {
         display              : grid;
         grid-template-columns: 1fr 1fr;

@@ -8,6 +8,9 @@ import { useLocation } from 'react-router-dom'
 // Mock Data
 // import mockData from './mockData'
 
+// Router
+import { useNavigate } from "react-router"
+
 // Redux
 import { useAppSelector } from 'redux/hooks'
 import { selectComicListById } from 'redux/store/charactersSlice'
@@ -30,6 +33,8 @@ export default function CharacterDetail() {
   // Local State
   const [sortedComics, setSortedComics] = useState([])
 
+  // router
+  const navigate = useNavigate()
 
   // const sortedMockData = mockData.results.sort((a, b) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
   // console.log(sortedMockData)
@@ -40,10 +45,22 @@ export default function CharacterDetail() {
     setSortedComics(_sortedComics)
   }, [comicListById])
 
+  useEffect(() => {
+      window.scrollTo(0, 0)
+  }, [])
 
+  const handleBack = () => {
+    navigate('/')
+  }
 
   return (
     <div className='character-detail-container'>
+      <div className='back' onClick={handleBack}>
+        <i className="fa fa-solid fa-angle-left" />
+        <span>
+          Go back to List
+        </span>
+      </div>
       <div className='character-detail'>
         <div
           className='main-image'
@@ -72,6 +89,7 @@ export default function CharacterDetail() {
         </div>
         {
           sortedComics && sortedComics.length > 0 ? sortedComics.map((comic: any, index: number) => (
+          // sortedMockData && sortedMockData.length > 0 ? sortedMockData.map((comic: any, index: number) => (
             <div
               className='comic'
               key={index}
