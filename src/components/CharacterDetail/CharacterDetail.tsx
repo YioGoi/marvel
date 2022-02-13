@@ -35,7 +35,7 @@ export default function CharacterDetail() {
   // console.log(sortedMockData)
 
   useEffect(() => {
-    const _sortedComics = comicListById.results.sort((a: any, b: any) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
+    const _sortedComics = comicListById?.results.sort((a: any, b: any) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
     console.log(_sortedComics)
     setSortedComics(_sortedComics)
   }, [comicListById])
