@@ -4,7 +4,7 @@ import { useRef, useEffect, useCallback } from 'react'
 import './style.scss'
 
 // Mock Data
-import mockData from './mockData'
+// import mockData from './mockData'
 
 // Redux
 import { useAppSelector, useAppDispatch } from 'redux/hooks'
@@ -86,8 +86,8 @@ const Characters = () => {
             </header>
             <div className="character-list">
                 {
-                    // characterList?.results.map((character: characterListResultItemType, index: number) => {
-                        mockData.map((character: characterListResultItemType, index: number) => {
+                    characterList?.results.map((character: characterListResultItemType, index: number) => {
+                        // mockData.map((character: characterListResultItemType, index: number) => {
                         return (
                             <div
                                 key={index}

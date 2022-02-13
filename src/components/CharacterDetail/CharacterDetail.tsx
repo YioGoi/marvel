@@ -79,7 +79,7 @@ export default function CharacterDetail() {
               <div className='comic-image'>
                 <img
                   src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt={`comic-image-${comic.id}`}
+                  alt={`comic-${comic.id}`}
                 />
               </div>
 
