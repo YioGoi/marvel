@@ -23,11 +23,15 @@ type LocationTypes = {
   } | any
 }
 
+// Components
+import Loading from "components/root/Loading/Loading"
+
 export default function CharacterDetail() {
   let location: LocationTypes = useLocation()
 
   // State
   const comicListById = useAppSelector(selectComicListById)
+  const loading = useAppSelector(state => state.characters.loading)
   const character = location.state
 
   // Local State
@@ -46,7 +50,7 @@ export default function CharacterDetail() {
   }, [comicListById])
 
   useEffect(() => {
-      window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
   }, [])
 
   const handleBack = () => {
@@ -89,7 +93,7 @@ export default function CharacterDetail() {
         </div>
         {
           sortedComics && sortedComics.length > 0 ? sortedComics.map((comic: any, index: number) => (
-          // sortedMockData && sortedMockData.length > 0 ? sortedMockData.map((comic: any, index: number) => (
+            // sortedMockData && sortedMockData.length > 0 ? sortedMockData.map((comic: any, index: number) => (
             <div
               className='comic'
               key={index}
@@ -119,9 +123,14 @@ export default function CharacterDetail() {
           ))
             :
             <div>
-              <h3>
-                No Comics Found
-              </h3>
+              {
+                loading ?
+                  <Loading />
+                  :
+                  <h3>
+                    No Comics Found
+                  </h3>
+              }
             </div>
         }
       </div>
