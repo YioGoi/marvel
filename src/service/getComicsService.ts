@@ -20,7 +20,7 @@ function serialize(obj: any) {
         if (obj.hasOwnProperty(p)) {
             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
         }
-    return '/' + currentId + '/comics' + '?' + str.join("&")
+    return `/${currentId}/comics?${str.join('&')}`
 }
 
 function getFinalFilterParam(qp: comicsQueryParamTypes) {
