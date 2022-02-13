@@ -52,7 +52,9 @@ export const charactersSlice = createSlice({
                     // Concat new 30 results to the array
                     state.characterList.data.results = state.characterList.data.results.concat(action.payload?.data?.results)
                 }
-
+                
+                // Prepare for next scroll load
+                // Pass 30 items more for each load
                 state.offset = current(state)?.offset + 30
             })
             .addCase(getCharacters.rejected, (state, action) => {

@@ -37,7 +37,7 @@ const Characters = () => {
             let newParams: charactersQueryParamTypes = {
                 apikey: process.env.REACT_APP_API_KEY,
                 limit: 30,
-                offset: offset + 30
+                offset: offset
             }
             console.log('reached next scroll', newParams)
             dispatch(getCharacters(newParams))
