@@ -37,11 +37,10 @@ export default function CharacterDetail() {
   useEffect(() => {
     let clone = Object.assign([], comicListById?.results)
     const _sortedComics = clone?.sort((a: any, b: any) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
-    console.log(_sortedComics)
     setSortedComics(_sortedComics)
   }, [comicListById])
 
- 
+
 
   return (
     <div className='character-detail-container'>
@@ -72,7 +71,7 @@ export default function CharacterDetail() {
           </span>
         </div>
         {
-          sortedComics?.map((comic: any, index: number) => (
+          sortedComics && sortedComics.length > 0 ? sortedComics.map((comic: any, index: number) => (
             <div
               className='comic'
               key={index}
@@ -92,7 +91,7 @@ export default function CharacterDetail() {
                   {`${comic.prices[0].price} $`}
                 </h3>
                 <p>
-                  {comic.description}
+                  {comic.description.replace('<br>', '')}
                 </p>
                 <span>
                   {new Date(comic.dates[0].date).toDateString()}
@@ -100,6 +99,12 @@ export default function CharacterDetail() {
               </div>
             </div>
           ))
+            :
+            <div>
+              <h3>
+                No Comics Found
+              </h3>
+            </div>
         }
       </div>
     </div>
