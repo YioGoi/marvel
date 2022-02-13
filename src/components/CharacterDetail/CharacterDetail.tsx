@@ -28,7 +28,7 @@ export default function CharacterDetail() {
   const character = location.state
 
   // Local State
-  const [sortedComics, setSortedComics] = useState({ results: [] })
+  const [sortedComics, setSortedComics] = useState([])
 
 
   // const sortedMockData = mockData.results.sort((a, b) => +new Date(b.dates[0].date) - +new Date(a.dates[0].date))
@@ -72,7 +72,7 @@ export default function CharacterDetail() {
           </span>
         </div>
         {
-          sortedComics?.results.map((comic: any, index: number) => (
+          sortedComics?.map((comic: any, index: number) => (
             <div
               className='comic'
               key={index}
