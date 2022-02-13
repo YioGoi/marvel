@@ -91,7 +91,7 @@ export default function CharacterDetail() {
                   {`${comic.prices[0].price} $`}
                 </h3>
                 <p>
-                  {comic.description.replace('<br>', '')}
+                  {comic.description.replace(/<br\/>/gi, '\n')}
                 </p>
                 <span>
                   {new Date(comic.dates[0].date).toDateString()}
