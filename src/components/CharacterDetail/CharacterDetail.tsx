@@ -24,6 +24,8 @@ type LocationTypes = {
 }
 
 // Components
+
+// eslint-disable-next-line 
 import Loading from "components/root/Loading/Loading"
 
 export default function CharacterDetail() {
