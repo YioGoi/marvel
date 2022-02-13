@@ -21,6 +21,7 @@ import Router from './router'
 function App() {
   const dispatch = useAppDispatch()
 
+  // Initial call for character list
   useEffect(() => {
     let initialParams: charactersQueryParamTypes = {
       apikey: process.env.REACT_APP_API_KEY,

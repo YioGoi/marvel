@@ -16,14 +16,19 @@ import {
 // Models
 import { charactersQueryParamTypes, characterListResultItemType } from 'models'
 
+// Components
+import Loading from "components/root/Loading/Loading"
+
 const Characters = () => {
     // Global State
     const dispatch = useAppDispatch()
     const characterList = useAppSelector(selectCharacterList)
     const offset = useAppSelector(state => state.characters.offset)
+    const loading = useAppSelector(state => state.characters.loading)
 
     // add loader refrence 
     const loader = useRef<HTMLHeadingElement>(null)
+    const rootRef = useRef<HTMLHeadingElement>(null)
 
     const handleObserver = useCallback((entities: any) => {
         const target = entities[0]
@@ -43,7 +48,7 @@ const Characters = () => {
     useEffect(() => {
         let options = {
             root: null,
-            rootMargin: "20px",
+            rootMargin: "50px",
             threshold: 1.0
         }
         // initialize IntersectionObserver
@@ -55,7 +60,7 @@ const Characters = () => {
         // eslint-disable-next-line
     }, [])
 
-    return (<div className="container">
+    return (<div className="container" ref={rootRef}>
         <div className="character-list">
             {
                 characterList?.results.map((character: characterListResultItemType, index: number) => {
@@ -81,7 +86,11 @@ const Characters = () => {
                     )
                 })
             }
-            <div className="loading" ref={loader}></div>
+            <div className="loading" ref={loader}>
+               {
+                   loading && <Loading />
+               } 
+            </div>
         </div>
     </div>)
 }
